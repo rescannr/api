@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/inscannr/api/issues"
   },
-  "homepage": "https://github.com/inscannr/api#readme"
+  "homepage": "https://github.com/inscannr/api#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

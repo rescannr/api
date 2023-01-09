@@ -34,4 +34,4 @@ jobs:
           
       - name: Push image to the GHCR
         run: 
-          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.VERSION }}
+          docker push ${{ env.REPOSITORY }}:${{ env.VERSION }}

@@ -19,7 +19,7 @@ jobs:
       USER: ${{ github.actor }}
       REPOSITORY: ${{ github.repository }}
       PAT: ${{ secrets.GITHUB_TOKEN }}
-      VERSION: ${{ GITHUB_SHA }}
+      VERSION: ${{ github.sha }}
 
     steps:
       - name: Checkout repository

@@ -45,4 +45,4 @@ jobs:
           user: ${{ env.HOST }}
           key: ${{ env.PWD }}
           first_ssh: sudo docker rm -f ${{ env.CNTNR_NM }}
-          last_ssh: sudo docker run -d -p ${{ secrets.CNTNR_PRT_OT }}:${{ CNTNR_PRT_IN }} --name ${{ env.CNTNR_NM }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.VERSION }}
+          last_ssh: sudo docker run -d -p ${{ env.CNTNR_PRT_OT }}:${{ env.CNTNR_PRT_IN }} --name ${{ env.CNTNR_NM }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.VERSION }}

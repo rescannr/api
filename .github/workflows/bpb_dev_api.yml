@@ -1,7 +1,7 @@
 name: Build and publish a Docker image to the GHCR
 
 on:
-  pull_request:
+  push:
     branches: 
       - main
 
@@ -17,6 +17,13 @@ jobs:
       REPOSITORY: ${{ github.repository }}
       PAT: ${{ secrets.GITHUB_TOKEN }}
       VERSION: ${{ github.sha }}
+      IP: ${{ secrets.IP }}
+      HOST: ${{ secrets.HOST }}
+      KNWHST: ${{ secrets.KNWHST }}
+      PWD: ${{ secrets.PWD }}
+      CNTNR_PRT_IN: ${{ secrets.CNTNR_PRT_IN }}
+      CNTNR_PRT_OT: ${{ secrets.CNTNR_PRT_OT }}
+      CNTNR_NM: ${{ secrets.CNTNR_NM }}
 
     steps:
       - name: Checkout repository
@@ -32,3 +39,12 @@ jobs:
       - name: Push image to the GHCR
         run: 
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.VERSION }}
+    
+      - name: Deploy
+        uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
+        with:
+          host: ${{ env.IP }}
+          user: ${{ env.HOST }}
+          key: ${{ env.PWD }}
+          first_ssh: sudo docker rm -f ${{ env.CNTNR_NM }}
+          last_ssh: sudo docker run -d -p ${{ env.CNTNR_PRT_OT }}:${{ env.CNTNR_PRT_IN }} --name ${{ env.CNTNR_NM }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.VERSION }}

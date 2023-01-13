@@ -1,7 +1,9 @@
 name: Build and publish a Docker image to the GHCR
 
 on:
-  workflow_dispatch:
+  push:
+    branches: 
+      - main
 
 jobs:
 

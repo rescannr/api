@@ -34,7 +34,7 @@ jobs:
         run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }} .
       
       - name: Build Image for arm systems
-        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} .
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} -f arm-Dockerfile .
 
       - name: Log in to the GHCR
         run: 

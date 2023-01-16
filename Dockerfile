@@ -4,9 +4,11 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm ci
+RUN npm i
 
 COPY . .
+
+RUN npm run swagger-autogen
 
 EXPOSE 3000
 

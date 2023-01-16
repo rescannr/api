@@ -30,8 +30,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         
-      - name: Build Image
-        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.VERSION }} .
+      - name: Build Image for x86 systems
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }} .
+      
+      - name: Build Image for arm systems
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} .
 
       - name: Log in to the GHCR
         run: 
@@ -39,7 +42,7 @@ jobs:
           
       - name: Push image to the GHCR
         run: 
-          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.VERSION }}
+          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}
     
       - name: Deploy
         uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
@@ -48,4 +51,4 @@ jobs:
           user: ${{ env.HOST }}
           key: ${{ env.PWD }}
           first_ssh: sudo docker rm -f ${{ env.CNTNR_NM }}
-          last_ssh: sudo docker run -d -p ${{ env.CNTNR_PRT_OT }}:${{ env.CNTNR_PRT_IN }} --name ${{ env.CNTNR_NM }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.VERSION }}
+          last_ssh: sudo docker run -d -p ${{ env.CNTNR_PRT_OT }}:${{ env.CNTNR_PRT_IN }} --name ${{ env.CNTNR_NM }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}

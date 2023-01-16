@@ -2,7 +2,10 @@ const puppeteer = require("puppeteer");
 
 let return_receipt_data = async (url) => {
   // Launch a new browser
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox"],
+  });
   const page = await browser.newPage();
   // Go to the URL
   await page.goto(url);

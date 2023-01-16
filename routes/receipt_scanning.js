@@ -12,7 +12,7 @@ router.post("/", (req, res) => {
 
   if (url_checker(req.body.url)) {
     let data = return_receipt_data(req.body.url).then((data) => {
-      console.log(data);
+      res.status(200).send(data);
     });
   } else {
     res.status(400).send("Bad request");

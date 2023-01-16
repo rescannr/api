@@ -1,44 +1,48 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
-    "title": "inscannr API",
-    "description": "inscannr API documentation",
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
+    "title": "rescannr API",
+    "description": "rescannr api documentation",
+    "version": "1.0.0"
   },
+  "host": "localhost:3000",
   "basePath": "/",
-  "tags": [
-    {
-      "name": "Users",
-      "description": "API for users in the system"
-    }
-  ],
   "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
   "paths": {
     "/": {
       "get": {
-        "tags": ["Users"],
-        "summary": "Test endpoint",
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
+            "description": "OK"
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "User": {
-      "required": ["name", "_id", "companies"],
-      "properties": {}
+    },
+    "/inv_scn/": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
     }
   }
 }

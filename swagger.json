@@ -23,10 +23,10 @@
     "/inv_scn/": {
       "post": {
         "tags": ["Receipt scanning"],
-        "description": "Endpoint for scanning receipts",
+        "description": "Endpoint for scanning receipts data (WITHOUT QR CODE)",
         "parameters": [
           {
-            "name": "obj",
+            "name": "body",
             "in": "body",
             "schema": {
               "type": "object",
@@ -35,9 +35,7 @@
                   "example": "any"
                 }
               }
-            },
-            "description": "Object containing url of the receipt",
-            "required": true
+            }
           }
         ],
         "responses": {

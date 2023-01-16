@@ -8,7 +8,6 @@ const doc = {
     title: "rescannr API",
     description: "rescannr api documentation",
   },
-  host: "localhost:3000",
   schemes: ["http"],
 };
 

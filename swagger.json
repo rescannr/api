@@ -22,10 +22,11 @@
     },
     "/inv_scn/": {
       "post": {
-        "description": "",
+        "tags": ["Receipt scanning"],
+        "description": "Endpoint for scanning receipts",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
             "schema": {
               "type": "object",
@@ -34,12 +35,17 @@
                   "example": "any"
                 }
               }
-            }
+            },
+            "description": "Object containing url of the receipt",
+            "required": true
           }
         ],
         "responses": {
+          "200": {
+            "description": "Receipt data"
+          },
           "400": {
-            "description": "Bad Request"
+            "description": "Bad request"
           }
         }
       }

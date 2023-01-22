@@ -9,7 +9,7 @@ const doc = {
     description: "rescannr api documentation",
   },
   host: null,
-  schemes: ["http"],
+  schemes: ["http", "https"],
 };
 
 swaggerAutogen(outputFile, endpointsFiles, doc);

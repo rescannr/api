@@ -6,13 +6,7 @@ on:
       - main
   workflow_dispatch:
 
-jobs:
-
-  build-and-push-image:
-  
-    runs-on: ubuntu-latest
-    
-    env:
+env:
       REGISTRY: ghcr.io
       USER: ${{ github.actor }}
       REPOSITORY: ${{ github.repository }}
@@ -27,15 +21,18 @@ jobs:
       CNTNR_NM: ${{ secrets.CNTNR_NM }}
       CNTNR_ENV: ${{ secrets.CNTNR_ENV }}
 
+jobs:
+
+  build-and-push-x86-image:
+  
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         
       - name: Build Image for x86 systems
         run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }} .
-      
-      - name: Build Image for arm systems
-        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} -f arm-Dockerfile .
 
       - name: Log in to the GHCR
         run: 
@@ -43,8 +40,24 @@ jobs:
           
       - name: Push image to the GHCR
         run: 
-          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}
+          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }}
+
+  build-and-push-arm-image:
+      
+    runs-on: arm-builder
     
+    steps:
+      - name: Build Image for arm systems
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} -f arm-Dockerfile .
+        
+      - name: Log in to the GHCR
+        run: 
+          echo $PAT | docker login ghcr.io -u $USER --password-stdin
+          
+      - name: Push arm image to the GHCR
+        run: 
+          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}
+          
       - name: Deploy
         uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
         with:

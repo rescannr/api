@@ -47,6 +47,9 @@ jobs:
     runs-on: self-hosted
     
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
       - name: Build Image for arm systems
         run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} -f arm-Dockerfile .
         

@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM arm64v8/node:fermium-alpine3.17
 
 RUN apk add chromium
 

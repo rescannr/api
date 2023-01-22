@@ -42,7 +42,7 @@ jobs:
         run: 
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }}
 
-  build-and-push-arm-image:
+  build-push-deploy-arm-image:
       
     runs-on: self-hosted
     

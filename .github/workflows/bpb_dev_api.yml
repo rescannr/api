@@ -44,7 +44,7 @@ jobs:
 
   build-and-push-arm-image:
       
-    runs-on: arm-builder
+    runs-on: self-hosted
     
     steps:
       - name: Build Image for arm systems

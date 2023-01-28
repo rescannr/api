@@ -20,6 +20,7 @@ env:
       CNTNR_PRT_OT: ${{ secrets.CNTNR_PRT_OT }}
       CNTNR_NM: ${{ secrets.CNTNR_NM }}
       CNTNR_ENV: ${{ secrets.CNTNR_ENV }}
+      CNTNR_NTW: ${{ secrets.CNTNR_NTW }}
 
 jobs:
 
@@ -75,4 +76,4 @@ jobs:
           user: ${{ env.HOST }}
           key: ${{ env.PWD }}
           first_ssh: sudo docker rm -f ${{ env.CNTNR_NM }}
-          last_ssh: sudo docker run -d -p ${{ env.CNTNR_PRT_OT }}:${{ env.CNTNR_PRT_IN }} --name ${{ env.CNTNR_NM }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}
+          last_ssh: sudo docker run -d -p ${{ env.CNTNR_PRT_OT }}:${{ env.CNTNR_PRT_IN }} --name ${{ env.CNTNR_NM }} --network ${{ env.CNTNR_NTW }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}

@@ -2,6 +2,7 @@ const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 const session = require("express-session");
+const passport = require("passport");
 require("dotenv").config();
 
 const receipt_scanning_router = require("./routes/receipt_scanning");
@@ -17,6 +18,8 @@ app.use(
     cookie: { secure: true },
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/inv_scn", receipt_scanning_router);
 

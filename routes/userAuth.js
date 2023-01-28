@@ -11,7 +11,7 @@ passport_config(passport);
 router.post(
   "/signup",
   passport.authenticate("local-signup", { session: false }),
-  (req, res, next) => {
+  (req, res) => {
     res.json({
       user: req.user,
     });

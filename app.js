@@ -4,6 +4,7 @@ const swaggerDocument = require("./swagger.json");
 const session = require("express-session");
 const passport = require("passport");
 const connectMongoDB = require("./db/mongodb.js");
+const userAuth = require("./routes/userAuth.js");
 require("dotenv").config();
 
 const receipt_scanning_router = require("./routes/receipt_scanning");

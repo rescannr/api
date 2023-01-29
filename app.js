@@ -28,7 +28,7 @@ app.use("/", userAuth);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/", receipt_scanning_router);
 
-app.get("/", (req, res) => {
+app.get("/", isAuthenticated, (req, res) => {
   res.send("Hello World!");
 });
 

@@ -18,6 +18,7 @@ app.use(
     secret: process.env.EXPRESS_SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: process.env.DEV ? false : true },
   })
 );
 

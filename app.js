@@ -5,12 +5,15 @@ const session = require("express-session");
 const passport = require("passport");
 const connectMongoDB = require("./db/mongodb.js");
 const userAuth = require("./routes/userAuth.js");
+const omnibusRateLimiter = require("./middleware/rateLimiting/omnibusRateLimiter.js");
 require("dotenv").config();
 
 const receipt_scanning_router = require("./routes/receiptScanning");
 
 const app = express();
 const port = process.env.EXPRESS_PORT;
+
+app.use(omnibusRateLimiter);
 
 app.use(
   session({

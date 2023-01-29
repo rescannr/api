@@ -9,7 +9,10 @@ passport_config();
 
 router.post(
   "/signup",
-  passport.authenticate("local-signup", { session: false }),
+  passport.authenticate("local-signup", {
+    successRedirect: "/login",
+    failureRedirect: "/signup",
+  }),
   (req, res) => {
     res.json({
       user: req.user,
@@ -19,7 +22,10 @@ router.post(
 
 router.post(
   "/login",
-  passport.authenticate("local-login", { session: false }),
+  passport.authenticate("local-login", {
+    successRedirect: "/",
+    failureRedirect: "/signup",
+  }),
   (req, res) => {
     res.json({
       user: req.user,

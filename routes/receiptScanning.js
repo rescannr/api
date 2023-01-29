@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const isAuthenticated = require("../middleware/passport/checkAuth.js");
 
-const url_checker = require("../middleware/url_checking/scraping_url_checker");
+const url_checker = require("../middleware/urlChecking/scrapingUrlChecker");
 
-const return_receipt_data = require("../pptr/scan_receipt");
+const return_receipt_data = require("../pptr/scanReceipt");
 
 router.use(express.json({ extended: true }));
 

@@ -7,7 +7,7 @@ const connectMongoDB = require("./db/mongodb.js");
 const userAuth = require("./routes/userAuth.js");
 require("dotenv").config();
 
-const receipt_scanning_router = require("./routes/receipt_scanning");
+const receipt_scanning_router = require("./routes/receiptScanning");
 
 const app = express();
 const port = process.env.EXPRESS_PORT;

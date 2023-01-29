@@ -5,7 +5,7 @@ const passport_config = require("../middleware/passport/passportConfig.js");
 
 router.use(express.json({ extended: true }));
 
-passport_config(passport);
+passport_config();
 
 router.post(
   "/signup",

@@ -1,7 +1,8 @@
+const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("../../db/userModel.js");
 
-module.exports = (passport) => {
+module.exports = () => {
   passport.use(
     "local-signup",
     new LocalStrategy(

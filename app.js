@@ -5,7 +5,6 @@ const session = require("express-session");
 const passport = require("passport");
 const connectMongoDB = require("./db/mongodb.js");
 const userAuth = require("./routes/userAuth.js");
-const isAuthenticated = require("./middleware/passport/checkAuth.js");
 require("dotenv").config();
 
 const receipt_scanning_router = require("./routes/receipt_scanning");

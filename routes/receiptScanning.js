@@ -8,7 +8,7 @@ const return_receipt_data = require("../pptr/scanReceipt");
 
 router.use(express.json({ extended: true }));
 
-router.post("/inv_scn", isAuthenticated, (req, res) => {
+router.post("/scan_receipt", isAuthenticated, (req, res) => {
   /*
     #swagger.tags = ['Receipt scanning']
     #swagger.description = 'Endpoint for scanning receipts data (WITHOUT QR CODE)'

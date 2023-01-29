@@ -20,8 +20,11 @@ app.use(
     saveUninitialized: true,
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use("/", userAuth);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/inv_scn", receipt_scanning_router);
 

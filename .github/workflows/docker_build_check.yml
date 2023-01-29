@@ -1,0 +1,45 @@
+name: Docker build check
+
+on:
+  workflow_dispatch:
+  
+  pull_request:
+  
+env:
+      REGISTRY: ghcr.io
+      USER: ${{ github.actor }}
+      REPOSITORY: ${{ github.repository }}
+      PAT: ${{ secrets.GITHUB_TOKEN }}
+      VERSION: ${{ github.sha }}
+      IP: ${{ secrets.IP }}
+      HOST: ${{ secrets.HOST }}
+      KNWHST: ${{ secrets.KNWHST }}
+      PWD: ${{ secrets.PWD }}
+      PORT: ${{ secrets.PORT }}
+      CNTNR_PRT_IN: ${{ secrets.CNTNR_PRT_IN }}
+      CNTNR_PRT_OT: ${{ secrets.CNTNR_PRT_OT }}
+      CNTNR_NM: ${{ secrets.CNTNR_NM }}
+      
+jobs:
+
+  build-x86-image:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Image for x86 systems
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }} .
+
+  build-arm-image:
+
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Image for arm systems
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} -f arm-Dockerfile .

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const isAuthenticated = require("../middleware/passport/checkAuth.js");
 
 const url_checker = require("../middleware/url_checking/scraping_url_checker");
 
@@ -7,7 +8,7 @@ const return_receipt_data = require("../pptr/scan_receipt");
 
 router.use(express.json({ extended: true }));
 
-router.post("/", (req, res) => {
+router.post("/inv_scn", isAuthenticated, (req, res) => {
   /*
     #swagger.tags = ['Receipt scanning']
     #swagger.description = 'Endpoint for scanning receipts data (WITHOUT QR CODE)'

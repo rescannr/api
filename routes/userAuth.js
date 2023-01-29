@@ -17,4 +17,14 @@ router.post(
   }
 );
 
+router.post(
+  "/login",
+  passport.authenticate("local-login", { session: false }),
+  (req, res) => {
+    res.json({
+      user: req.user,
+    });
+  }
+);
+
 module.exports = router;

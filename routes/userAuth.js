@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require("passport");
 const passport_config = require("../middleware/passport/passportConfig.js");
 
-router.use(passport.initialize());
 router.use(express.json({ extended: true }));
 
 passport_config(passport);

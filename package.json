@@ -29,7 +29,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "puppeteer": "^19.5.2",
-    "swagger-autogen": "^2.22.0",
+    "swagger-autogen": "^2.23.0",
     "swagger-ui-express": "^4.6.0",
     "url": "^0.11.0"
   },

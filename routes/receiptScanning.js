@@ -2,29 +2,13 @@ const express = require("express");
 const router = express.Router();
 const isAuthenticated = require("../middleware/passport/checkAuth.js");
 
-const url_checker = require("../middleware/urlChecking/scrapingUrlChecker");
+const url_checker = require("../middleware/urlChecking/scrapingUrlChecker.js");
 
-const return_receipt_data = require("../pptr/scanReceipt");
+const return_receipt_data = require("../pptr/scanReceipt.js");
 
 router.use(express.json({ extended: true }));
 
 router.post("/scan_receipt", isAuthenticated, (req, res) => {
-  /*
-    #swagger.tags = ['Receipt scanning']
-    #swagger.description = 'Endpoint for scanning receipts data (WITHOUT QR CODE)'
-    #swagger.parameters['obj'] = {
-      in: 'body',
-      description: 'Object containing url from the receipt's QR code',
-      required: true,
-      type: 'object'
-    }
-    #swagger.responses[200] = {
-      description: 'Receipt data'
-    }
-    #swagger.responses[400] = {
-      description: 'Bad request'
-    }
-  */
   // TODO: logging
 
   if (url_checker(req.body.url)) {

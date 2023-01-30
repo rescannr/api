@@ -10,6 +10,15 @@ const doc = {
   },
   host: null,
   schemes: ["http", "https"],
+  definitions: {
+    auth: {
+      $email: "string",
+      $password: "string",
+    },
+    receiptScanning: {
+      $url: "string",
+    },
+  },
 };
 
 swaggerAutogen(outputFile, endpointsFiles, doc);

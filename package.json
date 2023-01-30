@@ -20,9 +20,16 @@
   },
   "homepage": "https://github.com/inscannr/api#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "express-session": "^1.17.3",
+    "mongoose": "^6.9.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
     "puppeteer": "^19.5.2",
-    "swagger-autogen": "^2.22.0",
+    "swagger-autogen": "^2.23.0",
     "swagger-ui-express": "^4.6.0",
     "url": "^0.11.0"
   },

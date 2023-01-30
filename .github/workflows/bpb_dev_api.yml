@@ -23,6 +23,7 @@ env:
       CNTNR_NTW: ${{ secrets.CNTNR_NTW }}
       EXPRESS_PORT: ${{ secrets.EXPRESS_PORT }}
       EXPRESS_SS: ${{ secrets.EXPRESS_SS }}
+      DB: ${{ secrets.DB }}
 
 jobs:
 
@@ -78,4 +79,4 @@ jobs:
           user: ${{ env.HOST }}
           key: ${{ env.PWD }}
           first_ssh: sudo docker rm -f ${{ env.CNTNR_NM }}
-          last_ssh: sudo docker run -d -p ${{ env.CNTNR_PRT_OT }}:${{ env.CNTNR_PRT_IN }} --name ${{ env.CNTNR_NM }} --network ${{ env.CNTNR_NTW }} -e EXPRESS_PORT=${{ env.EXPRESS_PORT }} -e EXPRESS_SESSION_SECRET=${{ env.EXPRESS_SS }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}
+          last_ssh: sudo docker run -d -p ${{ env.CNTNR_PRT_OT }}:${{ env.CNTNR_PRT_IN }} --name ${{ env.CNTNR_NM }} --network ${{ env.CNTNR_NTW }} -e EXPRESS_PORT=${{ env.EXPRESS_PORT }} -e EXPRESS_SESSION_SECRET=${{ env.EXPRESS_SS }} -e DB_URL=${{ env.DB }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}

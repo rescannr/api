@@ -2,75 +2,67 @@ name: Build and publish a Docker image to the GHCR
 
 on:
   push:
-    branches: 
+    branches:
       - main
   workflow_dispatch:
 
 env:
-      REGISTRY: ghcr.io
-      USER: ${{ github.actor }}
-      REPOSITORY: ${{ github.repository }}
-      PAT: ${{ secrets.GITHUB_TOKEN }}
-      VERSION: ${{ github.sha }}
-      IP: ${{ secrets.IP }}
-      HOST: ${{ secrets.HOST }}
-      KNWHST: ${{ secrets.KNWHST }}
-      PWD: ${{ secrets.PWD }}
-      CNTNR_PRT_IN: ${{ secrets.CNTNR_PRT_IN }}
-      CNTNR_PRT_OT: ${{ secrets.CNTNR_PRT_OT }}
-      CNTNR_NM: ${{ secrets.CNTNR_NM }}
-      CNTNR_ENV: ${{ secrets.CNTNR_ENV }}
-      CNTNR_NTW: ${{ secrets.CNTNR_NTW }}
-      EXPRESS_PORT: ${{ secrets.EXPRESS_PORT }}
-      EXPRESS_SS: ${{ secrets.EXPRESS_SS }}
-      DB: ${{ secrets.DB }}
+  REGISTRY: ghcr.io
+  USER: ${{ github.actor }}
+  REPOSITORY: ${{ github.repository }}
+  PAT: ${{ secrets.GITHUB_TOKEN }}
+  VERSION: ${{ github.sha }}
+  IP: ${{ secrets.IP }}
+  HOST: ${{ secrets.HOST }}
+  KNWHST: ${{ secrets.KNWHST }}
+  PWD: ${{ secrets.PWD }}
+  CNTNR_PRT_IN: ${{ secrets.CNTNR_PRT_IN }}
+  CNTNR_PRT_OT: ${{ secrets.CNTNR_PRT_OT }}
+  CNTNR_NM: ${{ secrets.CNTNR_NM }}
+  CNTNR_ENV: ${{ secrets.CNTNR_ENV }}
+  CNTNR_NTW: ${{ secrets.CNTNR_NTW }}
+  EXPRESS_PORT: ${{ secrets.EXPRESS_PORT }}
+  EXPRESS_SS: ${{ secrets.EXPRESS_SS }}
+  DB: ${{ secrets.DB }}
 
 jobs:
-
   build-and-push-x86-image:
-  
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Build Image for x86 systems
-        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }} .
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }} --build-arg EXPRESS_PORT=${{ env.EXPRESS_PORT }} .
 
       - name: Log in to the GHCR
-        run: 
-          echo $PAT | docker login ghcr.io -u $USER --password-stdin
-          
+        run: echo $PAT | docker login ghcr.io -u $USER --password-stdin
+
       - name: Push image to the GHCR
-        run: 
-          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }}
+        run: docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:x86-${{ env.VERSION }}
 
   build-and-push-arm-image:
-      
     runs-on: self-hosted
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Build Image for arm systems
         run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} -f arm-Dockerfile .
-        
+
       - name: Log in to the GHCR
-        run: 
-          echo $PAT | docker login ghcr.io -u $USER --password-stdin
-          
+        run: echo $PAT | docker login ghcr.io -u $USER --password-stdin
+
       - name: Push arm image to the GHCR
-        run: 
-          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}
-          
+        run: docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }}
+
   deploy:
-  
     runs-on: ubuntu-latest
 
     needs: [build-and-push-x86-image, build-and-push-arm-image]
-    
+
     steps:
       - name: Deploy
         uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4

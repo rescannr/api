@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Image for arm systems
-        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} -f arm-Dockerfile .
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:arm-${{ env.VERSION }} --build-arg EXPRESS_PORT=${{ env.EXPRESS_PORT }} -f arm-Dockerfile .
 
       - name: Log in to the GHCR
         run: echo $PAT | docker login ghcr.io -u $USER --password-stdin

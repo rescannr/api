@@ -1,5 +1,7 @@
 FROM node:lts-alpine
 
+ARG EXPRESS_PORT
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
@@ -10,6 +12,6 @@ COPY . .
 
 RUN npm run swagger-autogen
 
-EXPOSE 3000
+EXPOSE ${EXPRESS_PORT}
 
 CMD ["node", "app.js"]

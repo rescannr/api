@@ -1,5 +1,7 @@
 FROM arm64v8/node:fermium-alpine3.17
 
+ARG EXPRESS_PORT
+
 RUN apk add chromium
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
@@ -15,6 +17,6 @@ COPY . .
 
 RUN npm run swagger-autogen
 
-EXPOSE 3000
+EXPOSE ${EXPRESS_PORT}
 
 CMD ["node", "app.js"]

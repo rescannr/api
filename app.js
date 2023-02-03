@@ -15,14 +15,17 @@ const port = process.env.EXPRESS_PORT;
 
 app.use(omnibusRateLimiter);
 
-app.use(
-  session({
-    secret: process.env.EXPRESS_SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: process.env.DEV ? false : true },
-  })
-);
+let sessionConfig = {
+  secret: process.env.EXPRESS_SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+};
+
+if (process.env.ENVIROMENT !== "development") {
+  sessionConfig.cookie.secure = true;
+}
+
+app.use(session(sessionConfig));
 
 app.use(passport.initialize());
 app.use(passport.session());

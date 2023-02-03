@@ -19,6 +19,9 @@ let sessionConfig = {
   secret: process.env.EXPRESS_SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  cookie: {
+    secure: false,
+  },
 };
 
 if (process.env.ENVIROMENT !== "development") {

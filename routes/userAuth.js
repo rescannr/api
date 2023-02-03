@@ -54,7 +54,7 @@ router.delete("/logout", function (req, res, next) {
 
   req.logout((err) => {
     if (err) {
-      return err;
+      return next(err);
     }
     res.redirect("/");
   });

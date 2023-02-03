@@ -11,14 +11,18 @@ router.post(
   "/signup",
   passport.authenticate("local-signup", { session: false }),
   (req, res) => {
-    /*  #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {
-                email: "test@example.com",
-                password: "example123"
-            }
-    } */
+    /*  
+    #swagger.tags = ['User Auth']
+    #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+          email: "test@example.com",
+          password: "example123"
+      }
+    } 
+  */
+
     res.json({
       user: req.user,
     });
@@ -26,20 +30,28 @@ router.post(
 );
 
 router.post("/login", passport.authenticate("local-login"), (req, res) => {
-  /*  #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {
-                email: "test@example.com",
-                password: "example123"
-            }
-    } */
+  /*  
+    #swagger.tags = ['User Auth']
+    #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+          email: "test@example.com",
+          password: "example123"
+      }
+    } 
+  */
+
   res.json({
     status: "success",
   });
 });
 
 router.delete("/logout", function (req, res, next) {
+  /*  
+    #swagger.tags = ['User Auth']
+  */
+
   req.logout((err) => {
     if (err) {
       return err;

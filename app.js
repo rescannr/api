@@ -13,21 +13,21 @@ const receipt_scanning_router = require("./routes/receiptScanning");
 const app = express();
 const port = process.env.EXPRESS_PORT;
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 app.use(omnibusRateLimiter);
 
 app.use(
   session({
     secret: process.env.EXPRESS_SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: process.env.DEV ? false : true },
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/", userAuth);
 app.use("/", receipt_scanning_router);

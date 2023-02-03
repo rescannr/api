@@ -11,6 +11,17 @@ router.use(express.json({ extended: true }));
 router.post("/scan_receipt", isAuthenticated, (req, res) => {
   // TODO: logging
 
+  /*  
+    #swagger.tags = ['Receipt Scanning']
+    #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+          url: "https://www.example.com"
+      }
+    } 
+  */
+
   if (url_checker(req.body.url)) {
     let data = return_receipt_data(req.body.url).then((data) => {
       res.status(200).send(data);

@@ -16,7 +16,7 @@ const port = process.env.EXPRESS_PORT;
 let sessionConfig = {
   secret: process.env.EXPRESS_SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     secure: false,
   },

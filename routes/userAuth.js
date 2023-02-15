@@ -7,8 +7,11 @@ router.use(express.json({ extended: true }));
 
 passport_config();
 
-router.post("/signup", passport.authenticate("local-signup"), (req, res) => {
-  /*  
+router.post(
+  "/signup",
+  passport.authenticate("local-signup", { session: false }),
+  (req, res) => {
+    /*  
     #swagger.tags = ['User Auth']
     #swagger.parameters['body'] = {
       in: 'body',
@@ -20,10 +23,11 @@ router.post("/signup", passport.authenticate("local-signup"), (req, res) => {
     } 
   */
 
-  res.json({
-    user: req.user,
-  });
-});
+    res.json({
+      user: req.user,
+    });
+  }
+);
 
 router.post("/login", passport.authenticate("local-login"), (req, res) => {
   /*  
